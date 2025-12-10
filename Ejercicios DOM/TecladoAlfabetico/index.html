@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Teclado Alfabético</title>
+
+  <style>
+    #contenedor {
+      display: grid;
+      grid-template-columns: repeat(6, 60px); 
+      grid-gap: 10px;
+      width: max-content;
+      margin: 50px auto;
+    }
+
+    button {
+      width: 60px;
+      height: 60px;
+      font-size: 20px;
+      cursor: pointer;
+      border: 2px solid gray;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1 style="text-align: center;">Teclado Alfabético</h1>
+
+  <div id="contenedor"></div>
+
+  <script>
+    const contenedor = document.getElementById("contenedor");
+
+    // Lista de vocales
+    const vocales = ['A', 'E', 'I', 'O', 'U'];
+
+    for (let ascii = 65; ascii <= 90; ascii++) {
+      let letra = String.fromCharCode(ascii);
+
+      let boton = document.createElement("button");
+      boton.textContent = letra;
+
+      // Colorear vocales
+      if (vocales.includes(letra)) {
+        boton.style.background = "orange";
+        boton.style.color = "white";
+      } else {
+        boton.style.background = "lightgray";
+        boton.style.color = "black";
+      }
+
+      contenedor.appendChild(boton);
+    }
+  </script>
+
+</body>
+
+</html>
