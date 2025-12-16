@@ -68,3 +68,26 @@ for (let i = 1; i <= 9; i++) {
 
     tecladoNum.appendChild(tecla);
 }
+
+function comprobar() {
+    let miTexto = document.getElementById("miTexto");
+    if (miTexto.textContent == palabra) {
+        miTexto.style.backgroundColor = "green";
+        alert("You win perfect!");
+    } else {
+        alert("You lose!");
+    }
+}
+
+let palabra = "";
+function palabraSecreta() {
+   fetch('https://random-word-api.herokuapp.com/word?lang=es&length=5')
+       .then(response => response.json())
+       .then(data => {
+           palabra = data[0]; // La API devuelve un array, ej: ["perro"]
+          
+           palabra=palabra.toUpperCase();
+           console.log("Tu palabra secreta es:", palabra);
+
+       });
+}
