@@ -40,7 +40,7 @@ for (let codigo = 65; codigo <= 90; codigo++) {
     tecla.textContent = letra;
     tecla.className = "tecla";
 
-    // Escribir letra en pantalla con límite de 5 caracteres
+    // Límite de 5 caracteres
     tecla.addEventListener("click", () => {
         if (pantalla.textContent.length < 5) {
             pantalla.textContent += letra;
@@ -59,7 +59,7 @@ for (let i = 1; i <= 9; i++) {
     tecla.textContent = i;
     tecla.className = "tecla";
 
-    // Escribir número en pantalla con límite de 5 caracteres
+    // Límite de 5 caracteres
     tecla.addEventListener("click", () => {
         if (pantalla.textContent.length < 5) {
             pantalla.textContent += i;
