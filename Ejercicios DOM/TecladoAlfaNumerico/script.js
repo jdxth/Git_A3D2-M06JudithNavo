@@ -1,6 +1,6 @@
 let pantalla = document.getElementById("pantalla");
 let botonEnviar = document.getElementById("btn-enviar");
-
+let botonBorrar = document.getElementById("btn-borrar"); // botón borrar
 
 // ---------- BOTÓN ENVIAR ----------
 botonEnviar.addEventListener("click", () => {
@@ -12,12 +12,15 @@ botonEnviar.addEventListener("click", () => {
     }
 });
 
+// ---------- BOTÓN BORRAR ----------
+botonBorrar.addEventListener("click", () => {
+    pantalla.textContent = pantalla.textContent.slice(0, -1);
+});
 
 // ---------- FUNCIONES ----------
 function esVocal(letra) {
     return ["A", "E", "I", "O", "U"].includes(letra);
 }
-
 
 function esPrimo(num) {
     if (num < 2) return false;
@@ -27,50 +30,41 @@ function esPrimo(num) {
     return true;
 }
 
-
 // ---------- TECLADO ALFABÉTICO ----------
 let tecladoAlf = document.getElementById("teclado-alfabetico");
-
 
 for (let codigo = 65; codigo <= 90; codigo++) {
     let letra = String.fromCharCode(codigo);
     let tecla = document.createElement("div");
 
-
     tecla.textContent = letra;
     tecla.className = "tecla";
 
-
-    // Escribir letra en pantalla
+    // Escribir letra en pantalla con límite de 5 caracteres
     tecla.addEventListener("click", () => {
-        pantalla.textContent += letra;
+        if (pantalla.textContent.length < 5) {
+            pantalla.textContent += letra;
+        }
     });
-
 
     tecladoAlf.appendChild(tecla);
 }
 
-
 // ---------- TECLADO NUMÉRICO ----------
 let tecladoNum = document.getElementById("teclado-numerico");
-
 
 for (let i = 1; i <= 9; i++) {
     let tecla = document.createElement("div");
 
-
     tecla.textContent = i;
     tecla.className = "tecla";
 
-
-    // Escribir número en pantalla
+    // Escribir número en pantalla con límite de 5 caracteres
     tecla.addEventListener("click", () => {
-        pantalla.textContent += i;
+        if (pantalla.textContent.length < 5) {
+            pantalla.textContent += i;
+        }
     });
-
 
     tecladoNum.appendChild(tecla);
 }
-
-
-

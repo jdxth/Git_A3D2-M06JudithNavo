@@ -89,3 +89,20 @@ h1 {
 .tecla:hover {
     background-color: #c1c1c1;
 }
+
+/* Botón borrar */
+#btn-borrar {
+    width: 100px;
+    height: 50px;
+    padding: 0 20px;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: 2px solid #000000;
+    background-color: #d12f2f;
+    color: white;
+    cursor: pointer;
+}
+
+#btn-borrar:hover {
+    background-color: #a62222;
+}
