@@ -41,13 +41,6 @@ for (let codigo = 65; codigo <= 90; codigo++) {
     tecla.className = "tecla";
 
 
-    // Vocales en naranja
-    if (esVocal(letra)) {
-        tecla.style.background = "orange";
-        tecla.style.color = "white";
-    }
-
-
     // Escribir letra en pantalla
     tecla.addEventListener("click", () => {
         pantalla.textContent += letra;

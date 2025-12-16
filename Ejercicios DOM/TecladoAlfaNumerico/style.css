@@ -11,7 +11,6 @@ body {
 h1 {
     text-align: center;
     margin: 50px;
-    /* opcional: para separar del teclado */
 }
 
 
@@ -43,14 +42,14 @@ h1 {
     font-size: 1rem;
     border-radius: 5px;
     border: 2px solid #000000;
-    background-color: #0077bc;
+    background-color: #018225;
     color: white;
     cursor: pointer;
 }
 
 
 #btn-enviar:hover {
-    background-color: #004369;
+    background-color: #00691e;
 }
 
 
