@@ -4,6 +4,7 @@ const tecladoAlf = document.getElementById("teclado-alfabetico");
 const tecladoNum = document.getElementById("teclado-numerico");
 const botonEnviar = document.getElementById("btn-enviar");
 const botonBorrar = document.getElementById("btn-borrar");
+const botonReiniciar = document.getElementById("btn-reiniciar");
 const mensajeError = document.getElementById("mensaje-error");
 
 // CONFIGURACIÓN
@@ -107,6 +108,22 @@ function comprobar() {
     }
 }
 
+// REINICIAR 
+function reiniciarJuego() {
+
+    tablero.innerHTML = "";
+    filas = [];
+
+    intentoActual = 0;
+    letraActual = 0;
+
+
+    mensajeError.textContent = "";
+
+    palabraSecreta();
+    crearTablero();
+}
+
 // TECLADO ALFABÉTICO
 function crearTecladoAlfabetico() {
     for (let i = 65; i <= 90; i++) {
@@ -133,6 +150,7 @@ function crearTecladoNumerico() {
 // EVENTOS
 botonEnviar.addEventListener("click", comprobar);
 botonBorrar.addEventListener("click", borrarUltimo);
+botonReiniciar.addEventListener("click", reiniciarJuego);
 
 // INICIO
 palabraSecreta();

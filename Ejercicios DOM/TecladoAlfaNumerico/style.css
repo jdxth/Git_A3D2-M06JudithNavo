@@ -31,14 +31,14 @@ h1 {
     background-color: #f4f4f4;
 }
 
-/* COLORES WORDLE */
+/* COLORES TABLERO */
 .correcta {
-    background-color: #6aaa64;
+    background-color: #64b95d;
     color: white;
 }
 
 .presente {
-    background-color: #c9b458;
+    background-color: #e0c652;
     color: white;
 }
 
@@ -51,6 +51,7 @@ h1 {
 #mensaje-error {
     color: red;
     height: 20px;
+    font-weight: bold;
 }
 
 /* BOTONES */
@@ -68,6 +69,10 @@ h1 {
     color: white;
     border-radius: 5px;
     cursor: pointer;
+    font-size: 20px;
+}
+#btn-enviar:hover {
+    background-color: #016619;
 }
 
 #btn-borrar {
@@ -77,6 +82,24 @@ h1 {
     color: white;
     border-radius: 5px;
     cursor: pointer;
+    font-size: 20px;
+}
+#btn-borrar:hover {
+    background-color: #b42222;
+}
+
+#btn-reiniciar {
+    width: 120px;
+    height: 50px;
+    background-color: #f9a618;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+#btn-reiniciar:hover {
+    background-color: #d68d0f;
 }
 
 /* TECLADOS */
