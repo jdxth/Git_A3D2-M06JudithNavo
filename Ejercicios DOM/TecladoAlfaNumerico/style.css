@@ -1,61 +1,90 @@
-
 body {
-    font-family: 'Arial', sans-serif;
-}
-
-
-h1 {
+    font-family: Arial, sans-serif;
     text-align: center;
-    margin: 50px;
 }
 
+/* Título */
+h1 {
+    margin: 30px;
+}
 
-#barra-entrada {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+/* TABLERO */
+#tablero {
+    display: grid;
+    grid-template-rows: repeat(6, 60px);
     gap: 10px;
-    margin: 20px auto;
+    justify-content: center;
+    margin-bottom: 20px;
 }
 
+.fila {
+    display: grid;
+    grid-template-columns: repeat(5, 60px);
+    gap: 10px;
+}
 
-#pantalla {
-    width: 400px;
-    height: 40px;
-    padding: 5px 10px;
-    font-size: 1.5rem;
+.celda {
     border: 2px solid #333;
-    border-radius: 5px;
+    font-size: 2rem;
+    font-weight: bold;
+    line-height: 60px;
     background-color: #f4f4f4;
 }
 
+/* COLORES WORDLE */
+.correcta {
+    background-color: #6aaa64;
+    color: white;
+}
 
-/* Botón enviar */
+.presente {
+    background-color: #c9b458;
+    color: white;
+}
+
+.incorrecta {
+    background-color: #787c7e;
+    color: white;
+}
+
+/* MENSAJE ERROR */
+#mensaje-error {
+    color: red;
+    height: 20px;
+}
+
+/* BOTONES */
+#barra-entrada {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
 #btn-enviar {
-    width: 100px;
+    width: 150px;
     height: 50px;
-    padding: 0 20px;
-    font-size: 1rem;
-    border-radius: 5px;
-    border: 2px solid #000000;
     background-color: #018225;
     color: white;
+    border-radius: 5px;
     cursor: pointer;
 }
 
-
-#btn-enviar:hover {
-    background-color: #00691e;
+#btn-borrar {
+    width: 100px;
+    height: 50px;
+    background-color: #d12f2f;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
-
-/* Teclados */
+/* TECLADOS */
 #contenedor-teclados {
     display: flex;
     justify-content: center;
     gap: 50px;
 }
-
 
 #teclado-alfabetico {
     display: grid;
@@ -63,46 +92,25 @@ h1 {
     gap: 10px;
 }
 
-
 #teclado-numerico {
     display: grid;
     grid-template-columns: repeat(3, 60px);
     gap: 10px;
 }
 
-
 .tecla {
     width: 50px;
     height: 50px;
-    font-size: 1.3rem;
     border-radius: 10px;
-    border: solid 2px #515151;
+    border: 2px solid #515151;
     background-color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     cursor: pointer;
-    transition: 0.2s;
+    font-size: 1.2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
-
 
 .tecla:hover {
     background-color: #c1c1c1;
-}
-
-/* Botón borrar */
-#btn-borrar {
-    width: 100px;
-    height: 50px;
-    padding: 0 20px;
-    font-size: 1rem;
-    border-radius: 5px;
-    border: 2px solid #000000;
-    background-color: #d12f2f;
-    color: white;
-    cursor: pointer;
-}
-
-#btn-borrar:hover {
-    background-color: #a62222;
 }

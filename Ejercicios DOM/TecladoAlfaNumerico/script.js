@@ -1,93 +1,141 @@
-let pantalla = document.getElementById("pantalla");
-let botonEnviar = document.getElementById("btn-enviar");
-let botonBorrar = document.getElementById("btn-borrar"); // botón borrar
+// ELEMENTOS
+const tablero = document.getElementById("tablero");
+const tecladoAlf = document.getElementById("teclado-alfabetico");
+const tecladoNum = document.getElementById("teclado-numerico");
+const botonEnviar = document.getElementById("btn-enviar");
+const botonBorrar = document.getElementById("btn-borrar");
+const mensajeError = document.getElementById("mensaje-error");
 
-// ---------- BOTÓN ENVIAR ----------
-botonEnviar.addEventListener("click", () => {
-    if (pantalla.textContent.trim() === "") {
-        alert("No hay nada que enviar");
-    } else {
-        alert("Texto enviado: " + pantalla.textContent);
-        pantalla.textContent = "";
-    }
-});
-
-// ---------- BOTÓN BORRAR ----------
-botonBorrar.addEventListener("click", () => {
-    pantalla.textContent = pantalla.textContent.slice(0, -1);
-});
-
-// ---------- FUNCIONES ----------
-function esVocal(letra) {
-    return ["A", "E", "I", "O", "U"].includes(letra);
-}
-
-function esPrimo(num) {
-    if (num < 2) return false;
-    for (let i = 2; i <= Math.sqrt(num); i++) {
-        if (num % i === 0) return false;
-    }
-    return true;
-}
-
-// ---------- TECLADO ALFABÉTICO ----------
-let tecladoAlf = document.getElementById("teclado-alfabetico");
-
-for (let codigo = 65; codigo <= 90; codigo++) {
-    let letra = String.fromCharCode(codigo);
-    let tecla = document.createElement("div");
-
-    tecla.textContent = letra;
-    tecla.className = "tecla";
-
-    // Límite de 5 caracteres
-    tecla.addEventListener("click", () => {
-        if (pantalla.textContent.length < 5) {
-            pantalla.textContent += letra;
-        }
-    });
-
-    tecladoAlf.appendChild(tecla);
-}
-
-// ---------- TECLADO NUMÉRICO ----------
-let tecladoNum = document.getElementById("teclado-numerico");
-
-for (let i = 1; i <= 9; i++) {
-    let tecla = document.createElement("div");
-
-    tecla.textContent = i;
-    tecla.className = "tecla";
-
-    // Límite de 5 caracteres
-    tecla.addEventListener("click", () => {
-        if (pantalla.textContent.length < 5) {
-            pantalla.textContent += i;
-        }
-    });
-
-    tecladoNum.appendChild(tecla);
-}
-
-function comprobar() {
-    let miTexto = document.getElementById("miTexto");
-    if (miTexto.textContent == palabra) {
-        miTexto.style.backgroundColor = "green";
-        alert("You win perfect!");
-    } else {
-        alert("You lose!");
-    }
-}
+// CONFIGURACIÓN
+const maxIntentos = 6;
+const longitud = 5;
 
 let palabra = "";
-function palabraSecreta() {
-   fetch('https://random-word-api.herokuapp.com/word?lang=es&length=5')
-       .then(response => response.json())
-       .then(data => {
-           palabra = data[0]; // La API devuelve un array, ej: ["perro"]
-          
-           palabra=palabra.toUpperCase();
-           console.log("Tu palabra secreta es:", palabra);
+let intentoActual = 0;
+let letraActual = 0;
+let filas = [];
 
-       });
+// PALABRA SECRETA
+function palabraSecreta() {
+    fetch('https://random-word-api.herokuapp.com/word?lang=es&length=5')
+        .then(res => res.json())
+        .then(data => {
+            palabra = data[0].toUpperCase();
+            console.log("Palabra secreta:", palabra);
+        });
 }
+
+// CREAR TABLERO
+function crearTablero() {
+    for (let i = 0; i < maxIntentos; i++) {
+        const fila = document.createElement("div");
+        fila.className = "fila";
+
+        let celdas = [];
+        for (let j = 0; j < longitud; j++) {
+            const celda = document.createElement("div");
+            celda.className = "celda";
+            fila.appendChild(celda);
+            celdas.push(celda);
+        }
+
+        tablero.appendChild(fila);
+        filas.push(celdas);
+    }
+}
+
+// ESCRIBIR
+function escribirTecla(valor) {
+    if (letraActual < longitud && intentoActual < maxIntentos) {
+        filas[intentoActual][letraActual].textContent = valor;
+        letraActual++;
+    }
+}
+
+// BORRAR
+function borrarUltimo() {
+    if (letraActual > 0) {
+        letraActual--;
+        filas[intentoActual][letraActual].textContent = "";
+    }
+}
+
+// COMPROBAR
+function comprobar() {
+    let palabraUsuario = filas[intentoActual]
+        .map(c => c.textContent)
+        .join("");
+
+    if (palabraUsuario.length < longitud) {
+        mensajeError.textContent = "Faltan letras";
+        return;
+    }
+
+    mensajeError.textContent = "";
+    let palabraTemp = palabra.split("");
+
+    filas[intentoActual].forEach((celda, i) => {
+        if (celda.textContent === palabra[i]) {
+            celda.classList.add("correcta");
+            palabraTemp[i] = null;
+        }
+    });
+
+    filas[intentoActual].forEach((celda, i) => {
+        if (
+            !celda.classList.contains("correcta") &&
+            palabraTemp.includes(celda.textContent)
+        ) {
+            celda.classList.add("presente");
+            palabraTemp[palabraTemp.indexOf(celda.textContent)] = null;
+        } else if (!celda.classList.contains("correcta")) {
+            celda.classList.add("incorrecta");
+        }
+    });
+
+    if (palabraUsuario === palabra) {
+        alert("You Win!");
+        intentoActual = maxIntentos;
+        return;
+    }
+
+    intentoActual++;
+    letraActual = 0;
+
+    if (intentoActual === maxIntentos) {
+        alert("You Lose! La palabra era: " + palabra);
+    }
+}
+
+// TECLADO ALFABÉTICO
+function crearTecladoAlfabetico() {
+    for (let i = 65; i <= 90; i++) {
+        const letra = String.fromCharCode(i);
+        const tecla = document.createElement("div");
+        tecla.textContent = letra;
+        tecla.className = "tecla";
+        tecla.addEventListener("click", () => escribirTecla(letra));
+        tecladoAlf.appendChild(tecla);
+    }
+}
+
+// TECLADO NUMÉRICO (opcional)
+function crearTecladoNumerico() {
+    for (let i = 1; i <= 9; i++) {
+        const tecla = document.createElement("div");
+        tecla.textContent = i;
+        tecla.className = "tecla";
+        tecla.addEventListener("click", () => escribirTecla(i));
+        tecladoNum.appendChild(tecla);
+    }
+}
+
+// EVENTOS
+botonEnviar.addEventListener("click", comprobar);
+botonBorrar.addEventListener("click", borrarUltimo);
+
+// INICIO
+palabraSecreta();
+crearTablero();
+crearTecladoAlfabetico();
+crearTecladoNumerico();
