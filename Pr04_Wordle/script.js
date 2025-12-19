@@ -1,7 +1,6 @@
 // ELEMENTOS
 const tablero = document.getElementById("tablero");
 const tecladoAlf = document.getElementById("teclado-alfabetico");
-const tecladoNum = document.getElementById("teclado-numerico");
 const botonEnviar = document.getElementById("btn-enviar");
 const botonBorrar = document.getElementById("btn-borrar");
 const botonReiniciar = document.getElementById("btn-reiniciar");
@@ -15,6 +14,7 @@ let palabra = "";
 let intentoActual = 0;
 let letraActual = 0;
 let filas = [];
+let teclas = {};
 
 // PALABRA SECRETA
 function palabraSecreta() {
@@ -28,6 +28,9 @@ function palabraSecreta() {
 
 // CREAR TABLERO
 function crearTablero() {
+    tablero.innerHTML = "";
+    filas = [];
+
     for (let i = 0; i < maxIntentos; i++) {
         const fila = document.createElement("div");
         fila.className = "fila";
@@ -75,6 +78,7 @@ function comprobar() {
     mensajeError.textContent = "";
     let palabraTemp = palabra.split("");
 
+// VERDES
     filas[intentoActual].forEach((celda, i) => {
         if (celda.textContent === palabra[i]) {
             celda.classList.add("correcta");
@@ -82,6 +86,7 @@ function comprobar() {
         }
     });
 
+// AMARILLAS / GRISES
     filas[intentoActual].forEach((celda, i) => {
         if (
             !celda.classList.contains("correcta") &&
@@ -91,6 +96,33 @@ function comprobar() {
             palabraTemp[palabraTemp.indexOf(celda.textContent)] = null;
         } else if (!celda.classList.contains("correcta")) {
             celda.classList.add("incorrecta");
+        }
+    });
+
+// PINTAR TECLADO
+    filas[intentoActual].forEach((celda) => {
+        const letra = celda.textContent;
+        const tecla = teclas[letra];
+
+        if (!tecla) return;
+
+        if (celda.classList.contains("correcta")) {
+            tecla.classList.remove("presente", "incorrecta");
+            tecla.classList.add("correcta");
+        }
+        else if (
+            celda.classList.contains("presente") &&
+            !tecla.classList.contains("correcta")
+        ) {
+            tecla.classList.remove("incorrecta");
+            tecla.classList.add("presente");
+        }
+        else if (
+            celda.classList.contains("incorrecta") &&
+            !tecla.classList.contains("correcta") &&
+            !tecla.classList.contains("presente")
+        ) {
+            tecla.classList.add("incorrecta");
         }
     });
 
@@ -110,15 +142,17 @@ function comprobar() {
 
 // REINICIAR 
 function reiniciarJuego() {
-
     tablero.innerHTML = "";
     filas = [];
 
     intentoActual = 0;
     letraActual = 0;
-
-
     mensajeError.textContent = "";
+
+// LIMPIAR COLORES DEL TECLADO
+    for (let letra in teclas) {
+        teclas[letra].classList.remove("correcta", "presente", "incorrecta");
+    }
 
     palabraSecreta();
     crearTablero();
@@ -133,17 +167,7 @@ function crearTecladoAlfabetico() {
         tecla.className = "tecla";
         tecla.addEventListener("click", () => escribirTecla(letra));
         tecladoAlf.appendChild(tecla);
-    }
-}
-
-// TECLADO NUMÉRICO (opcional)
-function crearTecladoNumerico() {
-    for (let i = 1; i <= 9; i++) {
-        const tecla = document.createElement("div");
-        tecla.textContent = i;
-        tecla.className = "tecla";
-        tecla.addEventListener("click", () => escribirTecla(i));
-        tecladoNum.appendChild(tecla);
+        teclas[letra] = tecla;
     }
 }
 
@@ -156,4 +180,3 @@ botonReiniciar.addEventListener("click", reiniciarJuego);
 palabraSecreta();
 crearTablero();
 crearTecladoAlfabetico();
-crearTecladoNumerico();

@@ -1,6 +1,7 @@
 body {
     font-family: Arial, sans-serif;
     text-align: center;
+    background-color: #f1f3f5;
 }
 
 /* Título */
@@ -115,11 +116,6 @@ h1 {
     gap: 10px;
 }
 
-#teclado-numerico {
-    display: grid;
-    grid-template-columns: repeat(3, 60px);
-    gap: 10px;
-}
 
 .tecla {
     width: 50px;
@@ -136,4 +132,20 @@ h1 {
 
 .tecla:hover {
     background-color: #c1c1c1;
+}
+
+/* LETRAS */
+.correcta {
+    background-color: #6aaa64;
+    color: white;
+}
+
+.presente {
+    background-color: #c9b458;
+    color: white;
+}
+
+.incorrecta {
+    background-color: #787c7e;
+    color: white;
 }
