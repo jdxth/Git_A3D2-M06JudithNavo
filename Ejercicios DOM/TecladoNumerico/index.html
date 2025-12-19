@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Teclado Numérico</title>
+
+  <style>
+    /* Un poco de estilo para que se vea como teclado */
+    #contenedor {
+      display: grid;
+      grid-template-columns: repeat(3, 60px);
+      grid-gap: 10px;
+      width: max-content;
+      margin: 50px auto;
+    }
+
+    button {
+      width: 60px;
+      height: 60px;
+      font-size: 20px;
+      cursor: pointer;
+      border: 2px solid gray;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1 style="text-align: center;">Teclado Numérico</h1>
+
+  <div id="contenedor"></div>
+
+  <script>
+    let contenedor = document.getElementById("contenedor");
+
+     //Función para comprobar si un número es primo
+    function esPrimo(num) {
+      if (num < 2) return false;
+      for (let i = 2; i <= Math.sqrt(num); i++) {
+        if (num % i === 0) return false;
+      }
+      return true;
+    }
+
+    for (let i = 1; i < 100; i++) {
+
+      let boton = document.createElement("button");
+      boton.textContent = i;
+
+      // Pares en azul
+      if (i % 2 == 0) {
+        boton.style.background = "blue";
+        boton.style.color = "white";
+      }
+
+      // Múltiplos de 3 en rojo
+      if (i % 3 == 0) {
+        boton.style.background = "red";
+        boton.style.color = "white";
+      }
+
+      // Múltiplos de 5 en amarillo
+      if (i % 5 == 0) {
+        boton.style.background = "yellow";
+        boton.style.color = "black";
+      }
+
+      // Números primos en verde 
+     if (esPrimo(i) && !boton.style.background) {
+        boton.style.background = "green";
+        boton.style.color = "white";
+      }
+
+      contenedor.appendChild(boton);
+    }
+  </script>
+
+</body>
+
+</html>

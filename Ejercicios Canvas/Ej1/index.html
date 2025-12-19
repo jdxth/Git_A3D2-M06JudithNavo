@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Mi Canvas</title>
+    <style>
+        canvas {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Mi primer canvas</h1>
+    <canvas id="canvas-box1" width="200px" height="200px"></canvas>
+    <canvas id="canvas-box2" width="200px" height="200px"></canvas>
+    <canvas id="canvas-box3" width="200px" height="200px"></canvas>
+    <canvas id="canvas-box4" width="200px" height="200px"></canvas>
+    <canvas id="canvas-box5" width="200px" height="200px"></canvas>
+
+    <script type="application/javascript">
+        window.onload = function () {
+            canvasBox1();
+            canvasBox2();
+            canvasBox3();
+            canvasBox4();
+            canvasBox5();
+        }
+        function canvasBox1() {
+            var canvas = document.getElementById("canvas-box1");
+            //Verificamos qye hay un elemento canvas con este ID
+            if (canvas.getContext) {
+                var ctx = canvas.getContext("2d");
+                //Un rectangulo rojo
+                ctxstrokeStyle = "rgb(0,255,0)";
+                ctxlineWidth = 5;
+                ctx.strokeRect(60, 10, -50, 50);
+
+                ctx.fillStyle = "rgb(200,0,0)";
+                ctx.fillRect(10, 10, 50, 50);
+            }
+        }
+
+        function canvasBox2() {
+            var canvas = document.getElementById("canvas-box2");
+            if (canvas.getContext) {
+                var ctx = canvas.getContext("2d");
+                //Un rectangulo rojo
+                ctx.fillStyle = "red";
+                ctx.fillRect(50, 50, 100, 100);
+                //Borro
+                ctx.clearRect(70, 70, 60, 60);
+                //Rectangulo azul con lineas
+                ctx.strokeStyle = "blue";
+                ctx.strokeRect(80, 80, 40, 40);
+
+            }
+        }
+
+        function canvasBox3() {
+            var canvas = document.getElementById("canvas-box3");
+            if (canvas.getContext) {
+                var ctx = canvas.getContext("2d");
+                //Me coloco en la coordenada inicial
+                ctx.moveTo(100, 20);
+                //Marco todas las coordenadas que me permiten ir haciendo lineas
+                ctx.lineTo(50, 150);
+                ctx.lineTo(150, 150);
+                //Me la ahorro si no es relleno
+                ctx.moveTo(100, 20);
+                //Relleno el triangulo
+                ctx.fillStyle = "red";
+                ctx.fill();
+                //Nuevo triangulo
+                ctx.beginPath();
+                ctx.moveTo(100, 50);
+                ctx.lineTo(70, 130);
+                ctx.lineTo(130, 130);
+                ctx.lineTo(100, 50);
+
+                //Pinto su interior
+                ctx.fillStyle = "white";
+                ctx.fill();
+
+                //Pinto los bordes
+                ctx.strokeStyle = "blue";
+                ctxlineWidth = 5;
+                ctx.stroke();
+            }
+        }
+
+        function canvasBox4() {
+            var canvas = document.getElementById("canvas-box4");
+            if (canvas.getContext) {
+                var ctx = canvas.getContext("2d");
+
+                ctx.beginPath();
+                ctx.moveTo(100, 100);
+                ctx.arc(100, 100, 50, degToRad(30), degToRad(330));
+
+                ctx.closePath();
+                ctx.fillStyle = "yellow";
+                ctx.lineWidth = 5;
+                ctx.fill();
+
+                ctx.beginPath();
+
+                ctx.arc(90, 70, 5, degToRad(0), degToRad(360));
+                ctx.fillStyle = "white";
+                ctx.fill();
+
+            }
+        }
+        function degToRad(degress) {
+            return (degress * Math.PI) / 180;
+        }
+
+        function canvasBox5() {
+            var canvas = document.getElementById("canvas-box5");
+            if (canvas.getContext) {
+                var ctx = canvas.getContext("2d");
+
+                var gradient = ctx.createLinearGradient(60, 10, 50, 50);
+                gradient.addColorStop(0, "black");
+                gradient.addColorStop(1, "yellow");
+
+                ctx.fillStyle = gradient;
+                ctx.fillRect(60, 10, 50, 50);
+            }
+        }
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,91 @@
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+/* Fondo con degradado */
+body {
+    background: linear-gradient(135deg, #0c0a1f, #0f0046);
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Título principal */
+h1 {
+    color: white;
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2.4rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+/* Categorías */
+.category {
+    width: 80%;
+    max-width: 900px;
+    margin: 35px auto;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(8px);
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    animation: fade 0.6s ease-in-out;
+}
+
+.category h2 {
+    color: #ffffff;
+    margin-bottom: 15px;
+    border-left: 6px solid #8e89fe;
+    padding-left: 10px;
+    font-weight: 600;
+}
+
+/* Grid de tarjetas */
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+/* Tarjetas */
+.card {
+    background: rgba(255, 255, 255, 0.09);
+    padding: 18px;
+    border-radius: 12px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+    transition: 0.3s ease;
+    text-decoration: none;
+    color: white;
+    font-weight: 500;
+    display: block;
+    width: 200px;
+    text-align: center;
+    backdrop-filter: blur(4px);
+}
+
+/* Hover */
+.card:hover {
+    transform: translateY(-6px);
+    background: rgba(57, 0, 138, 0.457);
+    color: #fff;
+    box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.25);
+}
+
+/* Animación */
+@keyframes fade {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
