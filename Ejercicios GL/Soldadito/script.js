@@ -37,24 +37,44 @@ const material = new THREE.MeshStandardMaterial({
 
 const materialSombrero = new THREE.MeshStandardMaterial({
     color: 'rgba(40, 40, 40, 1)',
-    roughness: 0.6
+    roughness: 0.3,
+    metalness: 0.3
 });
 
 const materialPiel = new THREE.MeshStandardMaterial({
     color: 'rgba(255, 210, 155, 1)',
-    roughness: 0.6,
+    roughness: 0.3,
     metalness: 0.3
 });
 
 const materialUniforme = new THREE.MeshStandardMaterial({
     color: 'rgba(208, 27, 27, 1)',
-    roughness: 0.6,
+    roughness: 0.3,
+    metalness: 0.3
+});
+
+const materialCinturon = new THREE.MeshStandardMaterial({
+    color: 'rgba(13, 13, 13, 1)',
+    roughness: 0.3,
     metalness: 0.3
 });
 
 const materialPiernas = new THREE.MeshStandardMaterial({
     color: 'rgba(0, 28, 168, 1)',
-    roughness: 0.6,
+    roughness: 0.3,
+    metalness: 0.3
+});
+
+const materialPies = new THREE.MeshStandardMaterial({
+    color: 'rgba(54, 54, 54, 1)',
+    roughness: 0.3,
+    metalness: 0.3
+});
+
+const materialSuelo = new THREE.MeshStandardMaterial({
+    color: 'rgba(128, 71, 0, 1)',
+    roughness: 0.3,
+    metalness: 0.3
 });
 
 // Sombrero
@@ -104,7 +124,7 @@ soldado.add(cuerpo);
 // Cinturón
 const cinturon = new THREE.Mesh(
     new THREE.CylinderGeometry(0.3, 0.3, 0.5),
-    materialUniforme
+    materialCinturon
 );
 cinturon.position.set(0, 0.7, 0);
 cinturon.rotation.z = Math.PI / 1;
@@ -170,6 +190,50 @@ const piernaDer = new THREE.Mesh(
 piernaDer.position.set(0, -0.5, 0);
 piernaDerGroup.add(piernaDer);
 soldado.add(piernaDerGroup);
+
+// -------------------- MANOS --------------------
+// Mano izquierda
+const manoIzq = new THREE.Mesh(
+    new THREE.SphereGeometry(0.12, 16, 16),
+    materialPiel
+);
+manoIzq.position.set(0, -1, 0); // al final del brazo
+brazoIzqGroup.add(manoIzq);
+
+// Mano derecha
+const manoDer = new THREE.Mesh(
+    new THREE.SphereGeometry(0.12, 16, 16),
+    materialPiel
+);
+manoDer.position.set(0, -1, 0);
+brazoDerGroup.add(manoDer);
+
+// -------------------- PIES --------------------
+// Pie izquierdo
+const pieIzq = new THREE.Mesh(
+    new THREE.SphereGeometry(0.15, 16, 16),
+    materialPies
+);
+pieIzq.position.set(0, -1.2, 0); // al final de la pierna
+piernaIzqGroup.add(pieIzq);
+
+// Pie derecho
+const pieDer = new THREE.Mesh(
+    new THREE.SphereGeometry(0.15, 16, 16),
+    materialPies
+);
+pieDer.position.set(0, -1.2, 0);
+piernaDerGroup.add(pieDer);
+
+
+// Suelo
+const suelo = new THREE.Mesh(
+    new THREE.BoxGeometry(3, 0.2, 3),
+    materialSuelo
+);
+suelo.position.set(0, -1.3, 0);
+suelo.rotation.z = Math.PI / 1;
+soldado.add(suelo);
 
 // -------------------- ESCENA --------------------
 scene.add(soldado);
